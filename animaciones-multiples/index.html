@@ -10,7 +10,8 @@
 
         body{
             display: flex;
-            align-items: center;
+            /*align-items: center;*/
+            align-items: flex-start;
             justify-content: center;
             height: 100vh;
             color: white;
@@ -36,11 +37,11 @@
             align-items: center;
             justify-content: center;
             /*transition: .3s;*/
-            animation-name: cuadrado, rebote; 
+            animation-name: cuadrado,rebote;/*rebote; */
             animation-duration: 3s, .3s;
             /*animation-delay: 1s;*/
             /*animation-iteration-count: 2;*/
-            animation-iteration-count: infinite;
+            animation-iteration-count: infinite, 20;
             /*animation-timing-function: ease;*/
             /*animation-timing-function: ease-in;*/ /* Aceleración más suave al inicio */
             /*animation-timing-function: ease-out;*/
@@ -51,10 +52,21 @@
             animation-timing-function: linear, ease-in-out;
             /*animation-direction: reverse;*/
             animation-direction: alternate;
-            animation-fill-mode: forwards;
+            /*animation-fill-mode: forwards;*/
             /*animation-play-state: running;*/
             /*animation-play-state: paused*/
             position: relative;
+        }
+
+        @keyframes escalera{
+            from{
+                transform: translateY(0);
+            }
+
+            to{
+                transform: translateY(500px);
+            }
+
         }
 
         @keyframes cuadrado{
@@ -85,9 +97,23 @@
 </head>
 <body>
     <div class="container">
-        <div class="cuadrado">
+        <div class="cuadrado" id="cuadrado">
             Hola mundo
         </div>
     </div>
+
+    <script>
+        const $cuadrado = document.getElementById('cuadrado');
+        //$cuadrado.addEventListener('nombre del evento', 'que hago cuando el elemento ocurra')
+        //$cuadrado.addEventListener('animationstart', (event) =>{
+        //$cuadrado.addEventListener('animationiteration', (event) =>{
+        $cuadrado.addEventListener('animationend', (event) =>{
+            //console.log(event.animationName)
+            if (event.animationName === 'rebote'){
+                $cuadrado.style.animationName = 'cuadrado, escalera'
+                $cuadrado.style.animationDuration = '3s'
+            }
+        })
+    </script>
 </body>
 </html>
